@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Jon's E-Marking System</title>
+		<title>Jon's Lab Marking System</title>
 	</head>
 	<body>
 <?php
@@ -97,6 +97,12 @@ if (!isset($_REQUEST['year'])) {
     
     if (!isset($_REQUEST['ex'])) {
         echo("<h1>$mod $year Summary</h1>");
+        echo("<hr/>");
+
+        echo("<a href='csv.php?year=$year&mod=$mod'>Export as CSV</a><br/>");
+        echo("<a href='allfeedback.php?year=$year&mod=$mod'>Export feedback as zip file</a>");
+
+        echo("<hr/>");
         // all assessments view
         echo("<div class='grades'>");
         echo("<table>");
@@ -104,6 +110,7 @@ if (!isset($_REQUEST['year'])) {
         echo("<td>Student</td>");
         foreach ($assessment_configs as $assessment => $cfg)
             echo("<td><a href='index.php?year=$year&mod=$mod&ex=$assessment'>{$cfg->title}</a></td>");
+        echo("<td>feedback</td>");
         echo("</tr>");
         
         foreach ($students as $student) {
@@ -116,6 +123,7 @@ if (!isset($_REQUEST['year'])) {
                     echo("<td><a href='report.html?sid=$student&year=$year&mod=$mod&ex=$assessment'>{$score}</a></td>");
                 }
             }
+            echo("<td><a href='feedback.php?sid=$student&year=$year&mod=$mod'>link</a></td>");
             echo("</tr>");
         }
         echo("</table>");
@@ -125,6 +133,9 @@ if (!isset($_REQUEST['year'])) {
         //single assessment view
         $assessment = $_REQUEST['ex'];
         
+        echo("<h1>$mod $year $assessment Summary</h1>");
+        echo("<hr/>");
+
         echo("<div class='grades'>");
         echo("<table>");
         echo("<tr>");
