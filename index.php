@@ -110,19 +110,26 @@ if (!isset($_REQUEST['year'])) {
         echo("<td>Student</td>");
         foreach ($assessment_configs as $assessment => $cfg)
             echo("<td><a href='index.php?year=$year&mod=$mod&ex=$assessment'>{$cfg->title}</a></td>");
+        echo("<td>total</td>");
         echo("<td>feedback</td>");
         echo("</tr>");
         
         foreach ($students as $student) {
             echo("<td>$student</td>");
+            $total = 0;
             foreach ($assessment_configs as $assessment => $cfg) {
                 $score = $student_grades[$student][$assessment];
                 if ($score == 'x') {
                     echo("<td>x</td>");
                 } else {
                     echo("<td><a href='report.html?sid=$student&year=$year&mod=$mod&ex=$assessment'>{$score}</a></td>");
+
+                    if ($score != '-') {
+                        $total =+ (int)$score;
+                    }
                 }
             }
+            echo("<td>{$total}</td>");
             echo("<td><a href='feedback.php?sid=$student&year=$year&mod=$mod'>link</a></td>");
             echo("</tr>");
         }
