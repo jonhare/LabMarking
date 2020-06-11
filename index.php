@@ -125,7 +125,7 @@ if (!isset($_REQUEST['year'])) {
                     echo("<td><a href='report.html?sid=$student&year=$year&mod=$mod&ex=$assessment'>{$score}</a></td>");
 
                     if ($score != '-') {
-                        $total =+ (int)$score;
+                        $total += (int)$score;
                     }
                 }
             }
