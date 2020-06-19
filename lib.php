@@ -17,6 +17,8 @@ function getFeedback($student, $year, $mod) {
     $str.="Feedback for {$student}\n\n";
     
     //find the grades {student->assessment->grade}
+    $total = 0;
+    $totaloutof = 0;
     foreach ($assessment_configs as $assessment => $cfg) {
         $gpath = "data/$year/$mod/grades/$student/$assessment.json";
         $spath = "data/$year/$mod/handin-filtered/$student/$assessment.pdf";
@@ -26,7 +28,18 @@ function getFeedback($student, $year, $mod) {
             $grade =array_fill(0,count($cfg->scheme), false);
         }
 
-        $str.="{$cfg->title}\n";
+        $partcount = 0;
+        foreach ($grade as $i => $g) {
+            if ($g) {
+                $partcount += 1;
+            }
+        }
+        $partoutof = count($grade);
+        $total += $partcount;
+        $totaloutof += $partoutof;
+
+        $str.="{$cfg->title} ({$partcount} / {$partoutof})\n";
+
         foreach ($grade as $i => $g) {
         	$gg = ' ';
         	if ($g) {
@@ -36,6 +49,9 @@ function getFeedback($student, $year, $mod) {
         }
         $str.="\n";
     }
+
+    $str.="\nTotal: {$total} / {$totaloutof}\n";
+
     return $str;
 }
 ?>
