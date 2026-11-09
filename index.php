@@ -148,6 +148,11 @@ if (!isset($_REQUEST['year'])) {
         echo("<h1>$mod $year $assessment Summary</h1>");
         echo("<hr/>");
 
+        echo("<a href='csv.php?year=$year&mod=$mod&ex=$assessment'>Export as CSV</a><br/>");
+        echo("<a href='allfeedback.php?year=$year&mod=$mod&ex=$assessment'>Export feedback as zip file</a>");
+
+        echo("<hr/>");
+
         echo("<div class='grades'>");
         echo("<table>");
         echo("<tr>");

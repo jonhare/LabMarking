@@ -9,6 +9,12 @@ require_once('lib.php');
 $year = $_REQUEST['year'];
 $mod = $_REQUEST['mod'];
 
+if (isset($_REQUEST['ex'])) {
+        $assessment = $_REQUEST['ex'];
+} else {
+	$assessment = NULL;
+}
+
 $zip = new zipfile();
 
 //find the students
@@ -20,7 +26,7 @@ foreach ($files as $file) {
     
     $fullrelpath = "data/$year/$mod/handin-filtered/$file";
     if (is_dir($fullrelpath)) {
-    	$file_content = getFeedback($base, $year, $mod);
+    	$file_content = getFeedback($base, $year, $mod, $assessment);
         $zip->addFile($file_content, "$base.txt");
     }
 }

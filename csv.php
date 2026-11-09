@@ -20,6 +20,13 @@ foreach ($files as $file) {
     }
 }
 
+if (isset($_REQUEST['ex'])) {
+	$assessment = $_REQUEST['ex'];
+	$cfg = $assessment_configs[$assessment];
+	$assessment_configs = array();
+	$assessment_configs[$assessment] = $cfg;
+}
+
 //find the students
 $students = array();
 $files = scandir("data/$year/$mod/handin-filtered/");

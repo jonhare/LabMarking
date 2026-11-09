@@ -1,12 +1,16 @@
 <?php
-function getFeedback($student, $year, $mod) {
+function getFeedback($student, $year, $mod, $assessment) {
 	$str = "";
 	//find the configured assessments
     $assessment_configs = array();
     $files = scandir("data/$year/$mod/configs/");
     foreach ($files as $file) {
         $file_parts = pathinfo($file);
-        $base = $file_parts['filename'];
+	$base = $file_parts['filename'];
+
+	if ($assessment != NULL && $assessment != $base)
+            continue;
+
         if ($file_parts['extension'] == 'json') {
             $fullrelpath = "data/$year/$mod/configs/$file";
             $cfg = json_decode(file_get_contents($fullrelpath));
